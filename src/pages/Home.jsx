@@ -1,6 +1,6 @@
 const Home = () => {
   return (
-    <div>
+    <div className="px-3 pt-3">
       <h2 className="table-title">Post list</h2>
 
       <input
