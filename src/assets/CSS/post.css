@@ -59,3 +59,8 @@
 .post-desc {
    margin-bottom: 30px;
 }
+
+.card-desc {
+   height: 169px;
+   overflow-y: auto;
+}
