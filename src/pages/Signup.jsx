@@ -19,7 +19,7 @@ const Signup = () => {
             className="form-control"
             type="text"
             name="email"
-            placeholder="doe@gmail.com"
+            placeholder="doeJane@gmail.com"
           />
         </div>
 
