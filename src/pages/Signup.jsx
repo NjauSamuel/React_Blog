@@ -1,4 +1,5 @@
 import { useState } from "react";
+import signupValidator from "../validators/signupValidator";
 
 const initialFormData = {name: '', email: '', password: '', confirmPassword: ''};
 const initialFormError = {name: "", email: "", password: "", confirmPassword: ""};
@@ -15,11 +16,23 @@ const Signup = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+
+    const errors = signupValidator({
+      name: formData.name, 
+      email: formData.email, 
+      password: formData.password, 
+      confirmPassword: formData.confirmPassword
+    });
+
+    if(errors.name || errors.email || errors.password || errors.confirmPassword){
+      setFormError(errors)
+    } else{
+      setFormError(initialFormError)
+    }
   }
 
   return (
-    <div className="form-container">
+    <div className="form-container mb-8">
       <form className="inner-container" onSubmit={handleSubmit}>
         <h2 className="form-title">Signup Form</h2>
         <div className="form-group">
@@ -32,6 +45,9 @@ const Signup = () => {
             value={formData.name}
             onChange={handleChange}
           />
+
+          {formError.name && <p className="error">{formError.name}</p> }
+
         </div>
 
         <div className="form-group">
@@ -44,6 +60,8 @@ const Signup = () => {
             value={formData.email}
             onChange={handleChange}
           />
+
+          {formError.email && <p className="error">{formError.email}</p> }
         </div>
 
         <div className="form-group">
@@ -56,6 +74,8 @@ const Signup = () => {
             value={formData.password}
             onChange={handleChange}
           />
+
+          {formError.password && <p className="error">{formError.password}</p> }
         </div>
 
         <div className="form-group">
@@ -68,6 +88,8 @@ const Signup = () => {
             value={formData.confirmPassword}
             onChange={handleChange}
           />
+
+          {formError.confirmPassword && <p className="error">{formError.confirmPassword}</p> }
         </div>
 
         <div className="form-group">
