@@ -3,7 +3,7 @@ import PrivateNavbar from "../PrivateNavbar";
 
 const PrivateLayout = () => {
 
-    const auth = true;
+    const auth = false;
 
     if(!auth){
         return <Navigate to="/login" />
