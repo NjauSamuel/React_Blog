@@ -1,6 +1,6 @@
 import { useState } from "react";
 import signupValidator from "../validators/signupValidator";
-import axios from "axios";
+import axios from "../utils/axiosInstance";
 
 
 const initialFormData = {name: '', email: '', password: '', confirmPassword: ''};
@@ -42,7 +42,7 @@ const Signup = () => {
           password: formData.password
         }
 
-        const response = await axios.post("http://localhost:8000/api/v1/auth/signup", requestBody)
+        const response = await axios.post("auth/signup", requestBody)
         console.log(response);
 
         setFormData(initialFormData)
