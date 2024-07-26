@@ -1,6 +1,8 @@
 import { useState } from "react";
 import signupValidator from "../validators/signupValidator";
 import axios from "../utils/axiosInstance";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 
 const initialFormData = {name: '', email: '', password: '', confirmPassword: ''};
@@ -12,6 +14,7 @@ const Signup = () => {
   const [formData, setFormData] = useState(initialFormData);
   const [formError, setFormError] = useState(initialFormError);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
 
   const handleChange = (e) => {
@@ -43,13 +46,28 @@ const Signup = () => {
         }
 
         const response = await axios.post("auth/signup", requestBody)
+
+        const data = response.data;
+
+        toast.success(data.message, {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: true
+        });
+
         console.log(response);
 
         setFormData(initialFormData)
         setFormError(initialFormError)
         setLoading(false);
+        navigate("/login");
       }catch(error){
         setLoading(false);
+        const response = error.response;
+        const data = response.data;
+        toast.success(data.message, {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: true
+        });
         console.log(error.message)
       }
     }
