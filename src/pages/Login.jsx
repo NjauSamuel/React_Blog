@@ -48,6 +48,8 @@ const Login = () => {
           autoClose: 6000,
         });
 
+        window.localStorage.setItem("blogData", JSON.stringify(data.data))
+
         setFormData(initialFormData)
         setFormError(initialFormError)
         setLoading(false);
