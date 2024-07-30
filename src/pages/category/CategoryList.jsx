@@ -1,7 +1,12 @@
+import { useNavigate } from "react-router-dom";
+
 const CategoryList = () => {
+
+  const navigate = useNavigate();
+
   return (
     <div>
-      <button className="button button-block">Add New Category</button>
+      <button className="button button-block" onClick={() => navigate("new-category")}>Add New Category</button>
       <h2 className="table-title">Category list</h2>
       <input
         className="saerch-input"
@@ -27,7 +32,7 @@ const CategoryList = () => {
             <td>2023-10-01 14:43:52</td>
             <td>2023-10-01 14:43:52</td>
             <th>
-              <button className="button">Update</button>
+              <button className="button" onClick={() => navigate("update-category")}>Update</button>
               <button className="button">Delete</button>
             </th>
           </tr>

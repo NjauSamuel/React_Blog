@@ -1,7 +1,12 @@
+import { useNavigate } from "react-router-dom";
+
 const NewCategory = () => {
+
+  const navigate = useNavigate();
+
   return (
     <div>
-      <button className="button button-block">Go Back</button>
+      <button className="button button-block" onClick={() => navigate("/categories")}>Go Back</button>
       <div className="form-container">
         <form className="inner-container">
           <h2 className="form-title">New Category</h2>
