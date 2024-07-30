@@ -16,7 +16,6 @@ export const AuthProvider = ({children}) => {
             const blogData = JSON.parse(stringifyBlogData);
             const user = blogData.user;
             setAuth(user)
-            console.log(auth)
         }else{
             setAuth(null);
         }
