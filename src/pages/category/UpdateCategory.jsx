@@ -1,8 +1,15 @@
 import { useNavigate } from "react-router-dom";
+import { useRef, useEffect } from "react";
 
 const UpdateCategory = () => {
 
   const navigate = useNavigate();
+
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    inputRef.current.focus()
+  }, []);
 
   return (
     <div>
@@ -17,6 +24,7 @@ const UpdateCategory = () => {
               type="text"
               name="title"
               placeholder="Technology"
+              ref={inputRef}
             />
           </div>
 

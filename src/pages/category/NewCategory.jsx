@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import axios from "../../utils/axiosInstance";
 import { toast } from "react-toastify";
 import addCategoryValidator from "../../validators/addCategoryValidator";
@@ -67,6 +67,12 @@ const NewCategory = () => {
     }
   }
 
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, [])
+
   return (
     <div>
       <button className="button button-block" onClick={() => navigate("/categories")}>Go Back</button>
@@ -76,6 +82,7 @@ const NewCategory = () => {
           <div className="form-group">
             <label>Title</label>
             <input
+              ref={inputRef}
               className="form-control"
               type="text"
               name="title"
