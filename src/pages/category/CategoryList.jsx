@@ -9,6 +9,9 @@ const CategoryList = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);
+  const [totalPage, setTotalPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageCount, setPageCount] = useState([]);
 
   useEffect(() => {
     const getCategories = async () => {
@@ -16,9 +19,10 @@ const CategoryList = () => {
         setLoading(true);
 
         // Api Request
-        const response = await axios.get("category")
+        const response = await axios.get(`category?page=${currentPage}`)
         const data = response.data.data
         setCategories(data.categories)
+        setTotalPage(data.pages);
 
         setLoading(false);
       }catch(error){
@@ -32,7 +36,36 @@ const CategoryList = () => {
     }
 
     getCategories();
-  }, [])
+  }, [currentPage])
+
+  useEffect(() => {
+    if(totalPage > 1){
+      let tempPageCount = [];
+
+      for(let i = 1;i <= totalPage; i++){
+        tempPageCount= [...tempPageCount, i]
+      }
+
+      setPageCount(tempPageCount)
+    }else{
+      setPageCount([])
+    }
+  }, [totalPage])
+
+  const handlePrevious = () => {
+    setCurrentPage((prev) => prev - 1)
+  }
+
+  const handleNext = () => {
+    setCurrentPage((next) => next + 1)
+  }
+
+  const handlePage = (pageNumber) => {
+    setCurrentPage(pageNumber)
+  }
+
+  console.log(pageCount)
+  console.log(currentPage)
 
   return (
     <div>
@@ -73,13 +106,21 @@ const CategoryList = () => {
         </tbody>
       </table>}
 
-      <div className="pag-container">
-        <button className="pag-button">prev</button>
-        <button className="pag-button">1</button>
-        <button className="pag-button">2</button>
-        <button className="pag-button">3</button>
-        <button className="pag-button">next</button>
-      </div>
+      {pageCount.length && (
+        <div className="pag-container">
+
+          <button className="pag-button" onClick={handlePrevious} disabled={currentPage === 1}>prev</button>
+
+          {pageCount.map((pageNumber, index) => (
+            <button className="pag-button" key={index} onClick={() => handlePage(pageNumber)} style={{backgroundColor: currentPage === pageCount ? "#ccc" : ""}}>
+              {pageNumber}
+            </button>
+          ))}
+
+          <button className="pag-button" onClick={handleNext} disabled={currentPage === totalPage}>next</button>
+
+        </div>
+      )}
     </div>
   );
 };
