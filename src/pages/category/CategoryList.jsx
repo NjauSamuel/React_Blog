@@ -1,8 +1,38 @@
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import axios from "../../utils/axiosInstance";
+import moment from "moment";
 
 const CategoryList = () => {
 
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    const getCategories = async () => {
+      try{
+        setLoading(true);
+
+        // Api Request
+        const response = await axios.get("category")
+        const data = response.data.data
+        setCategories(data.categories)
+
+        setLoading(false);
+      }catch(error){
+        setLoading(false);
+        const response = error.response;
+        const data = response.data;
+        toast.error(data.message, {
+          autoClose: 6000,
+        });
+      }
+    }
+
+    getCategories();
+  }, [])
 
   return (
     <div>
@@ -15,6 +45,7 @@ const CategoryList = () => {
         placeholder="Search here"
       />
 
+      {loading ? "Loading..." : 
       <table>
         <thead>
           <tr>
@@ -26,108 +57,21 @@ const CategoryList = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Category 1</td>
-            <td>Test Description</td>
-            <td>2023-10-01 14:43:52</td>
-            <td>2023-10-01 14:43:52</td>
-            <th>
-              <button className="button" onClick={() => navigate("update-category")}>Update</button>
-              <button className="button">Delete</button>
-            </th>
-          </tr>
-          <tr>
-            <td>Category 2</td>
-            <td>Test Description</td>
-            <td>2023-10-01 14:43:52</td>
-            <td>2023-10-01 14:43:52</td>
-            <th>
-              <button className="button">Update</button>
-              <button className="button">Delete</button>
-            </th>
-          </tr>
-          <tr>
-            <td>Category 3</td>
-            <td>Test Description</td>
-            <td>2023-10-01 14:43:52</td>
-            <td>2023-10-01 14:43:52</td>
-            <th>
-              <button className="button">Update</button>
-              <button className="button">Delete</button>
-            </th>
-          </tr>
-          <tr>
-            <td>Category 4</td>
-            <td>Test Description</td>
-            <td>2023-10-01 14:43:52</td>
-            <td>2023-10-01 14:43:52</td>
-            <th>
-              <button className="button">Update</button>
-              <button className="button">Delete</button>
-            </th>
-          </tr>
-          <tr>
-            <td>Category 5</td>
-            <td>Test Description</td>
-            <td>2023-10-01 14:43:52</td>
-            <td>2023-10-01 14:43:52</td>
-            <th>
-              <button className="button">Update</button>
-              <button className="button">Delete</button>
-            </th>
-          </tr>
-          <tr>
-            <td>Category 6</td>
-            <td>Test Description</td>
-            <td>2023-10-01 14:43:52</td>
-            <td>2023-10-01 14:43:52</td>
-            <th>
-              <button className="button">Update</button>
-              <button className="button">Delete</button>
-            </th>
-          </tr>
-          <tr>
-            <td>Category 7</td>
-            <td>Test Description</td>
-            <td>2023-10-01 14:43:52</td>
-            <td>2023-10-01 14:43:52</td>
-            <th>
-              <button className="button">Update</button>
-              <button className="button">Delete</button>
-            </th>
-          </tr>
-          <tr>
-            <td>Category 8</td>
-            <td>Test Description</td>
-            <td>2023-10-01 14:43:52</td>
-            <td>2023-10-01 14:43:52</td>
-            <th>
-              <button className="button">Update</button>
-              <button className="button">Delete</button>
-            </th>
-          </tr>
-          <tr>
-            <td>Category 9</td>
-            <td>Test Description</td>
-            <td>2023-10-01 14:43:52</td>
-            <td>2023-10-01 14:43:52</td>
-            <th>
-              <button className="button">Update</button>
-              <button className="button">Delete</button>
-            </th>
-          </tr>
-          <tr>
-            <td>Category 10</td>
-            <td>Test Description</td>
-            <td>2023-10-01 14:43:52</td>
-            <td>2023-10-01 14:43:52</td>
-            <th>
-              <button className="button">Update</button>
-              <button className="button">Delete</button>
-            </th>
-          </tr>
+
+          {categories.map((category) => (
+            <tr key={category._id}>
+              <td>{category.title}</td>
+              <td>{category.desc}</td>
+              <td>{moment(category.createdAt).format("YYYY-MM-DD HH:mm:ss")}</td>
+              <td>{moment(category.updatedAt).format("YYYY-MM-DD HH:mm:ss")}</td>
+              <th>
+                <button className="button" onClick={() => navigate("update-category")}>Update</button>
+                <button className="button">Delete</button>
+              </th>
+            </tr> 
+          )) }        
         </tbody>
-      </table>
+      </table>}
 
       <div className="pag-container">
         <button className="pag-button">prev</button>
