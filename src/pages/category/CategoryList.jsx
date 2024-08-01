@@ -12,6 +12,7 @@ const CategoryList = () => {
   const [totalPage, setTotalPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageCount, setPageCount] = useState([]);
+  const [searchValue, setSearchValue] = useState("")
 
   useEffect(() => {
     const getCategories = async () => {
@@ -19,7 +20,7 @@ const CategoryList = () => {
         setLoading(true);
 
         // Api Request
-        const response = await axios.get(`category?page=${currentPage}`)
+        const response = await axios.get(`category?page=${currentPage}&q=${searchValue}`)
         const data = response.data.data
         setCategories(data.categories)
         setTotalPage(data.pages);
@@ -63,9 +64,26 @@ const CategoryList = () => {
   const handlePage = (pageNumber) => {
     setCurrentPage(pageNumber)
   }
+  
+  const handleSearch = async (e) => {
+    try{
+      const input = e.target.value;
+      setSearchValue(input);
 
-  console.log(pageCount)
-  console.log(currentPage)
+      const response = await axios.get(`/category?q=${input}&page=${currentPage}`)
+      const data = response.data.data;
+
+      setCategories(data.categories)
+      setTotalPage(data.pages)
+    }catch(error){
+      setLoading(false);
+      const response = error.response;
+      const data = response.data;
+      toast.error(data.message, {
+        autoClose: 6000,
+      });
+    }
+  }
 
   return (
     <div>
@@ -76,6 +94,7 @@ const CategoryList = () => {
         type="text"
         name="search"
         placeholder="Search here"
+        onChange={handleSearch}
       />
 
       {loading ? "Loading..." : 
@@ -126,4 +145,3 @@ const CategoryList = () => {
 };
 
 export default CategoryList;
-
