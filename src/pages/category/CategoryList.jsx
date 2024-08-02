@@ -86,13 +86,38 @@ const CategoryList = () => {
     }
   }
 
+  // DELETING LOGIC And Modal Manenoz. 
+
+  const [categoryId, setCategoryId] = useState(null)
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOpenModal = () => setIsModalOpen(true);
   const handleCloseModal = () => setIsModalOpen(false);
-  const handleConfirmDelete = () => {
+  const handleConfirmDelete = async () => {
     // Handle the deletion logic here
     console.log('Category deleted');
+
+    try{
+      const response = await axios.delete(`category/${categoryId}`)
+      const data = response.data;
+      toast.success(data.message, {
+        autoClose: 6000,
+      });
+
+      const response2 = await axios.get(
+        `category?page=${currentPage}&q=${searchValue}`
+      )
+      const data2 = response2.data.data
+      setCategories(data2.categories)
+      setTotalPage(data2.pages)
+    }catch(error){
+      const response = error.response;
+      const data = response.data;
+      toast.error(data.message, {
+        autoClose: 6000,
+      });
+    }
     setIsModalOpen(false);
   };
 
@@ -129,7 +154,13 @@ const CategoryList = () => {
               <td>{moment(category.updatedAt).format("YYYY-MM-DD HH:mm:ss")}</td>
               <th>
                 <button className="button" onClick={() => navigate(`update-category/${category._id}`)}>Update</button>
-                <button className="button" onClick={handleOpenModal}>Delete</button>
+                <button className="button" onClick={() => {
+                  handleOpenModal();
+                  setCategoryId(category._id);
+                  }
+                }>
+                  Delete
+                </button>
               </th>
             </tr> 
           )) }        
