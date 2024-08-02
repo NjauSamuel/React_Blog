@@ -22,7 +22,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="categories" element={<CategoryList />} />
           <Route path="categories/new-category" element={<NewCategory />} />
-          <Route path="categories/update-category" element={<UpdateCategory />}/>
+          <Route path="categories/update-category/:id" element={<UpdateCategory />}/>
           <Route path="posts" element={<PostList />} />
           <Route path="profile" element={<Profile />} />
           <Route path="setting" element={<Setting />} />

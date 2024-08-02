@@ -117,7 +117,7 @@ const CategoryList = () => {
               <td>{moment(category.createdAt).format("YYYY-MM-DD HH:mm:ss")}</td>
               <td>{moment(category.updatedAt).format("YYYY-MM-DD HH:mm:ss")}</td>
               <th>
-                <button className="button" onClick={() => navigate("update-category")}>Update</button>
+                <button className="button" onClick={() => navigate(`update-category/${category._id}`)}>Update</button>
                 <button className="button">Delete</button>
               </th>
             </tr> 
