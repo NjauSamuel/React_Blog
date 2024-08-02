@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import axios from "../../utils/axiosInstance";
 import moment from "moment";
+import Modal from "../../components/modals/categoryModal";
 
 const CategoryList = () => {
 
@@ -85,8 +86,18 @@ const CategoryList = () => {
     }
   }
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = () => setIsModalOpen(true);
+  const handleCloseModal = () => setIsModalOpen(false);
+  const handleConfirmDelete = () => {
+    // Handle the deletion logic here
+    console.log('Category deleted');
+    setIsModalOpen(false);
+  };
+
   return (
-    <div>
+    <div className="mx-3">
       <button className="button button-block" onClick={() => navigate("new-category")}>Add New Category</button>
       <h2 className="table-title">Category list</h2>
       <input
@@ -118,15 +129,21 @@ const CategoryList = () => {
               <td>{moment(category.updatedAt).format("YYYY-MM-DD HH:mm:ss")}</td>
               <th>
                 <button className="button" onClick={() => navigate(`update-category/${category._id}`)}>Update</button>
-                <button className="button">Delete</button>
+                <button className="button" onClick={handleOpenModal}>Delete</button>
               </th>
             </tr> 
           )) }        
         </tbody>
       </table>}
 
+      <Modal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        onConfirm={handleConfirmDelete}
+      />
+
       {pageCount.length && (
-        <div className="pag-container">
+        <div className="my-3 pag-container">
 
           <button className="pag-button" onClick={handlePrevious} disabled={currentPage === 1}>prev</button>
 
