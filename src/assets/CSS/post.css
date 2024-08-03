@@ -38,7 +38,7 @@
 
 .card-img {
    display: block;
-   width: 100px;
+   /* width: 100px; */
    height: 100px;
    object-fit: cover;
 }
@@ -61,6 +61,6 @@
 }
 
 .card-desc {
-   height: 169px;
+   max-height: 169px;
    overflow-y: auto;
 }

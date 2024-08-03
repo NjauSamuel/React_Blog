@@ -1,7 +1,13 @@
+import placeImg from "../../assets/images/place.jpeg"
+import { useNavigate } from "react-router-dom";
+
 const PostList = () => {
+
+  const navigate = useNavigate()
+
   return (
-    <div>
-      <button className="button button-block">Add New Post</button>
+    <div className="px-3 pb-3">
+      <button className="button button-block" onClick={() => navigate("new-post")}>Add New Post</button>
       <h2 className="table-title">Post list</h2>
 
       <input
@@ -12,85 +18,77 @@ const PostList = () => {
       />
 
       <div className="flexbox-container wrap">
+
+        <div className="post-card" onClick={() => navigate("detail-post")}>
+          <h4 className="card-title">Post 1</h4>
+          <p className="card-desc">
+            Lorem, ipsum dolor sit amet consectetur.
+          </p>
+          <img src={placeImg} alt="mern" className="card-img" />
+        </div>
+
         <div className="post-card">
           <h4 className="card-title">Post 1</h4>
           <p className="card-desc">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsam et
-            hic quae fugit sint architecto, libero aperiam ut tempore
-            voluptatum.
+            Lorem, ipsum dolor sit amet consectetur.
           </p>
+          <img src={placeImg} alt="mern" className="card-img" />
         </div>
         <div className="post-card">
           <h4 className="card-title">Post 1</h4>
           <p className="card-desc">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsam et
-            hic quae fugit sint architecto, libero aperiam ut tempore
-            voluptatum.
+            Lorem, ipsum dolor sit amet consectetur.
           </p>
+          <img src={placeImg} alt="mern" className="card-img" />
         </div>
         <div className="post-card">
           <h4 className="card-title">Post 1</h4>
           <p className="card-desc">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsam et
-            hic quae fugit sint architecto, libero aperiam ut tempore
-            voluptatum.
+            Lorem, ipsum dolor sit amet consectetur.
           </p>
+          <img src={placeImg} alt="mern" className="card-img" />
         </div>
         <div className="post-card">
           <h4 className="card-title">Post 1</h4>
           <p className="card-desc">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsam et
-            hic quae fugit sint architecto, libero aperiam ut tempore
-            voluptatum.
+            Lorem, ipsum dolor sit amet consectetur.
           </p>
+          <img src={placeImg} alt="mern" className="card-img" />
         </div>
         <div className="post-card">
           <h4 className="card-title">Post 1</h4>
           <p className="card-desc">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsam et
-            hic quae fugit sint architecto, libero aperiam ut tempore
-            voluptatum.
+            Lorem, ipsum dolor sit amet consectetur.
           </p>
+          <img src={placeImg} alt="mern" className="card-img" />
         </div>
         <div className="post-card">
           <h4 className="card-title">Post 1</h4>
           <p className="card-desc">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsam et
-            hic quae fugit sint architecto, libero aperiam ut tempore
-            voluptatum.
+            Lorem, ipsum dolor sit amet consectetur.
           </p>
+          <img src={placeImg} alt="mern" className="card-img" />
         </div>
         <div className="post-card">
           <h4 className="card-title">Post 1</h4>
           <p className="card-desc">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsam et
-            hic quae fugit sint architecto, libero aperiam ut tempore
-            voluptatum.
+            Lorem, ipsum dolor sit amet consectetur.
           </p>
+          <img src={placeImg} alt="mern" className="card-img" />
         </div>
         <div className="post-card">
           <h4 className="card-title">Post 1</h4>
           <p className="card-desc">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsam et
-            hic quae fugit sint architecto, libero aperiam ut tempore
-            voluptatum.
+            Lorem, ipsum dolor sit amet consectetur.
           </p>
+          <img src={placeImg} alt="mern" className="card-img" />
         </div>
         <div className="post-card">
           <h4 className="card-title">Post 1</h4>
           <p className="card-desc">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsam et
-            hic quae fugit sint architecto, libero aperiam ut tempore
-            voluptatum.
+            Lorem, ipsum dolor sit amet consectetur.
           </p>
-        </div>
-        <div className="post-card">
-          <h4 className="card-title">Post 1</h4>
-          <p className="card-desc">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsam et
-            hic quae fugit sint architecto, libero aperiam ut tempore
-            voluptatum.
-          </p>
+          <img src={placeImg} alt="mern" className="card-img" />
         </div>
       </div>
 
