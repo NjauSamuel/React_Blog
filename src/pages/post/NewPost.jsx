@@ -21,7 +21,10 @@ const NewPost = () => {
   const [formData, setFormData] = useState(initialFormData);
   const [formError, setFormError] = useState(initialFormError);
   const [loading, setLoading] = useState(false);
-  const [categories, setCategories] = useState([])
+  const [categories, setCategories] = useState([]);
+  const [extensionError, setExtensionError] = useState(null);
+  const [fileId, setFileId] = useState(null);
+  const [isDisable, setIsDisable] = useState(false);
 
   const handleChange = (e) => {
     setFormData((prev) => ({...prev, [e.target.name]: e.target.value}))
@@ -60,13 +63,13 @@ const NewPost = () => {
       try{
         setLoading(true);
 
-        // API request
-        const requestBody = {
-          title: formData.title,
-          category: formData.category
+        let input = formData;
+
+        if(fileId){
+          input = {...input, file: fileId}
         }
 
-        const response = await axios.post("posts", requestBody)
+        const response = await axios.post("posts", input)
 
         const data = response.data;
 
@@ -91,7 +94,46 @@ const NewPost = () => {
     }
   }
 
-  console.log(formData)
+  const handleFileChange = async (e) => {
+    console.log(e.target.files)
+
+    const formInput = new FormData();
+    formInput.append("image", e.target.files[0])
+
+    const type = e.target.files[0].type
+
+    if(type === "image/png" || type === "image/jpg" || type === "image/jpeg"){
+      setExtensionError(null);
+      try{
+        setIsDisable(true);
+        // API request
+        const response = await axios.post("file/upload", formInput)
+
+        const data = response.data;
+        setFileId(data.data._id)
+
+        console.log(data);
+
+        toast.success(data.message, {
+          autoClose: 6000,
+        });
+
+        setIsDisable(false);
+        
+      }catch(error){
+        setLoading(false);
+        setIsDisable(false);
+        const response = error.response;
+        const data = response.data;
+        toast.error(data.message, {
+          autoClose: 6000,
+        });
+        
+      }
+    }else{
+      setExtensionError("Only .png or .jpg or .jpeg files are allowed. ");
+    }
+  }
 
   return (
     <div>
@@ -131,7 +173,9 @@ const NewPost = () => {
               type="file"
               name="file"
               placeholder="Lorem ipsum"
+              onChange={handleFileChange}
             />
+            {extensionError && <p className="error">{extensionError}</p>}
           </div>
 
           <div className="form-group">
@@ -147,7 +191,7 @@ const NewPost = () => {
           </div>
 
           <div className="form-group">
-            <input className="button" type="submit" value={`${loading ? "Adding..." : "Add"}`}/>
+            <input className="button" type="submit" disabled={isDisable} value={`${loading ? "Adding..." : "Add"}`}/>
           </div>
         </form>
       </div>
