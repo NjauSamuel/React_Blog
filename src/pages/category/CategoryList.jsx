@@ -38,7 +38,7 @@ const CategoryList = () => {
     }
 
     getCategories();
-  }, [currentPage])
+  }, [currentPage, searchValue])
 
   useEffect(() => {
     if(totalPage > 1){
@@ -173,13 +173,13 @@ const CategoryList = () => {
         onConfirm={handleConfirmDelete}
       />
 
-      {pageCount.length && (
+      {pageCount.length > 0 && (
         <div className="my-3 pag-container">
 
           <button className="pag-button" onClick={handlePrevious} disabled={currentPage === 1}>prev</button>
 
           {pageCount.map((pageNumber, index) => (
-            <button className="pag-button" key={index} onClick={() => handlePage(pageNumber)} style={{backgroundColor: currentPage === pageCount ? "#ccc" : ""}}>
+            <button className="pag-button" key={index} onClick={() => handlePage(pageNumber)} style={{backgroundColor: currentPage === pageNumber ? "#ccc" : ""}}>
               {pageNumber}
             </button>
           ))}
