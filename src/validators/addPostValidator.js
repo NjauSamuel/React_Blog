@@ -10,6 +10,8 @@ const addPostValidator = ({ title, category }) => {
 
     if (!category) {
         errors.category = "Category is Required!"
+    } else if (category === "") {
+        errors.category = "Category Field Should not be Blank!"
     }
 
     return errors;

@@ -63,8 +63,8 @@ const DetailPost = () => {
 
   return (
     <div>
-      <button className="button button-block" onClick={() => navigate(-1)}>Go Back</button>
-      <button className="button button-block" onClick={() => navigate("/posts/update-post")}>Update Post</button>
+      <button className="button button-block" onClick={() => navigate("/posts")}>Go Back</button>
+      <button className="button button-block" onClick={() => navigate(`/posts/update-post/${post._id}`)}>Update Post</button>
       <button className="button button-block">Delete Post</button>
       <div className="detail-container">
         <h2 className="post-title">{post?.title}</h2>
@@ -73,7 +73,7 @@ const DetailPost = () => {
         <h5 className="post-category">{moment(post?.updatedAt).format("YYYY-MM-DD HH:mm:ss")}</h5>
         <p className="post-desc"> {post?.desc} </p>
 
-        <img src={fileUrl} alt="mern" />
+        {fileUrl ? <img src={fileUrl} alt="Post Image" /> : null}
       </div>
     </div>
   );
