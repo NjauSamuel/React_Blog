@@ -109,7 +109,7 @@ const PostList = () => {
 
         {loading ? "Loading.." :   
           posts.map((post) => (
-            <div className="post-card" key={post._id} onClick={() => navigate("detail-post")}>
+            <div className="post-card" key={post._id} onClick={() => navigate(`detail-post/${post._id}`)}>
               <h4 className="card-title">{post.title}</h4>
               <p className="card-desc">
                 {post.desc.substring(0, 50)}...
