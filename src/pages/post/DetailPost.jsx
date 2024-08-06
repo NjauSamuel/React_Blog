@@ -1,9 +1,9 @@
-import placeImage from "../../assets/images/place.jpeg";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "../../utils/axiosInstance";
 import { toast } from "react-toastify";
 import moment from "moment";
+import PostModal from "../../components/modals/postModal";
 
 const DetailPost = () => {
 
@@ -61,11 +61,41 @@ const DetailPost = () => {
     }
   }, [post])
 
+
+  // DELETING LOGIC And Modal Manenoz. 
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = () => setIsModalOpen(true);
+  const handleCloseModal = () => setIsModalOpen(false);
+  const handleConfirmDelete = async () => {
+    // Handle the deletion logic here
+    console.log('Post deleted');
+
+    try{
+      const response = await axios.delete(`posts/${postId}`)
+      const data = response.data;
+      toast.success(data.message, {
+        autoClose: 6000,
+      });
+
+      navigate("/posts")
+    }catch(error){
+      const response = error.response;
+      const data = response.data;
+      toast.error(data.message, {
+        autoClose: 6000,
+      });
+    }
+    setIsModalOpen(false);
+  };
+
+
   return (
     <div>
       <button className="button button-block" onClick={() => navigate("/posts")}>Go Back</button>
       <button className="button button-block" onClick={() => navigate(`/posts/update-post/${post._id}`)}>Update Post</button>
-      <button className="button button-block">Delete Post</button>
+      <button className="button button-block" onClick={() => {handleOpenModal()}}>Delete Post</button>
       <div className="detail-container">
         <h2 className="post-title">{post?.title}</h2>
         <h5 className="post-category">{post?.category.title}</h5>
@@ -74,6 +104,13 @@ const DetailPost = () => {
         <p className="post-desc"> {post?.desc} </p>
 
         {fileUrl ? <img src={fileUrl} alt="Post Image" /> : null}
+
+        <PostModal 
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+          onConfirm={handleConfirmDelete}
+        />
+
       </div>
     </div>
   );

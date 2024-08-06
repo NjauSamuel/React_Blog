@@ -41,3 +41,21 @@
    background-color: #5bc0de;
    color: white;
 }
+
+.close-icon {
+   width: 24px; /* Added SVG styling */
+   height: 24px;
+   margin-right: 8px;
+   cursor: pointer;
+   fill: #d9534f;
+   float: right;
+   align-items: baseline;
+}
+
+.modal-header {
+   display: flex;
+   justify-content: space-between; /* Added to justify the icon to the right */
+   align-items: center;
+   margin-top: 12px;
+   margin-bottom: 8px;
+}
