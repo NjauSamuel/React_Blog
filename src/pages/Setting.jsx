@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import axios from "../utils/axiosInstance";
 import { toast } from "react-toastify";
 import changePasswordValidator from "../validators/changePasswordValidator";
+import { useAuth } from "../components/context/AuthContext";
 
 const initialFormData = {oldPassword: '', newPassword: ''};
 const initialFormError = {oldPassword: "", newPassword: ""};
@@ -15,6 +16,8 @@ const Setting = () => {
   const [formError, setFormError] = useState(initialFormError);
   const [loading, setLoading] = useState(false);
   const inputRef = useRef(null);
+
+  const auth = useAuth();
 
   // Focusing The Cursor To The First Input Only On Initial Render
   useEffect(() => {
@@ -74,6 +77,13 @@ const Setting = () => {
 
   return (
     <div className="min-h-[calc(100vh-56px)] flex items-center">
+
+      {auth.isVerified ?
+        <button className="absolute top-16 left-4 button button-block text-green-400">Email Verified</button>
+        :
+        <p className="absolute top-16 left-4 button button-block text-red-400" onClick={() => navigate("/verify-user")}>Verify Email</p>
+      }
+
       <div className="form-container">
         <form className="inner-container" onSubmit={handleSubmit}>
           <h2 className="form-title">Change Password</h2>
