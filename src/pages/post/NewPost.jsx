@@ -25,6 +25,12 @@ const NewPost = () => {
   const [extensionError, setExtensionError] = useState(null);
   const [fileId, setFileId] = useState(null);
   const [isDisable, setIsDisable] = useState(false);
+  const inputRef = useRef(null);
+
+  // Focusing The Cursor To The First Input Only On Initial Render
+  useEffect(() => {
+    inputRef.current.focus()
+  }, []);
 
   const handleChange = (e) => {
     setFormData((prev) => ({...prev, [e.target.name]: e.target.value}))
@@ -148,6 +154,7 @@ const NewPost = () => {
               type="text"
               name="title"
               placeholder="React blog post"
+              ref={inputRef}
               value={formData.title}
               onChange={handleChange}
             />

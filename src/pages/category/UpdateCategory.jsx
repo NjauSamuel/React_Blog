@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useRef, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "../../utils/axiosInstance";
 import { toast } from "react-toastify";
 import addCategoryValidator from "../../validators/addCategoryValidator";
@@ -21,14 +21,8 @@ const UpdateCategory = () => {
 
   const navigate = useNavigate();
 
-  const inputRef = useRef(null);
-
   const params = useParams();
   const categoryId  = params.id;
-
-  useEffect(() => {
-    inputRef.current.focus()
-  }, []);
 
   const handleChange = (e) => {
     setFormData((prev) => ({...prev, [e.target.name]: e.target.value}))
@@ -116,7 +110,6 @@ const UpdateCategory = () => {
               type="text"
               name="title"
               placeholder="Technology"
-              ref={inputRef}
               value={formData.title}
               onChange={handleChange}
             />
