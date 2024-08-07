@@ -108,9 +108,11 @@ const Home = () => {
           posts.map((post) => (
             <div className="post-card" key={post._id} onClick={() => navigate(`/posts/detail-post/${post._id}`)}>
               <h4 className="card-title">{post.title}</h4>
-              <p className="card-desc">
-                {post.desc.substring(0, 50)}...
-              </p>
+              <div className="flex min-h-[96px] items-center">
+                <p className="card-desc">
+                  {post.desc.length > 50 ? `${post.desc.substring(0, 50)}...` : post.desc}
+                </p>
+              </div>
             </div>
           ))
         }

@@ -105,7 +105,7 @@ const UpdateCategory = () => {
 
   return (
     <div>
-      <button className="button button-block" onClick={() => {navigate(-1)}}>Go Back</button>
+      <button className="button button-block ml-3" onClick={() => {navigate(-1)}}>Go Back</button>
       <div className="form-container">
         <form className="inner-container" onSubmit={handleSubmit}>
           <h2 className="form-title">Update Category</h2>

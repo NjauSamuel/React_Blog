@@ -137,7 +137,7 @@ const NewPost = () => {
 
   return (
     <div>
-      <button className="button button-block" onClick={() => {navigate(-1)}}>Go Back</button>
+      <button className="button button-block ml-3" onClick={() => {navigate(-1)}}>Go Back</button>
       <div className="form-container">
         <form className="inner-container" onSubmit={handleSubmit}>
           <h2 className="form-title">New Post</h2>
@@ -182,6 +182,7 @@ const NewPost = () => {
             <label>Select a category</label>
             <select className="form-control" name="category" value={formData.category} onChange={handleChange}>
               
+              <option></option>
               {categories.map((category) => (
                 <option key={category._id} value={category._id}>{category.title}</option>
               ))}

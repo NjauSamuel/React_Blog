@@ -93,9 +93,9 @@ const DetailPost = () => {
 
   return (
     <div>
-      <button className="button button-block" onClick={() => navigate("/posts")}>Go Back</button>
-      <button className="button button-block" onClick={() => navigate(`/posts/update-post/${post._id}`)}>Update Post</button>
-      <button className="button button-block" onClick={() => {handleOpenModal()}}>Delete Post</button>
+      <button className="button button-block ml-3" onClick={() => navigate("/posts")}>Go Back</button>
+      <button className="button button-block ml-3" onClick={() => navigate(`/posts/update-post/${post._id}`)}>Update Post</button>
+      <button className="button button-block ml-3" onClick={() => {handleOpenModal()}}>Delete Post</button>
       <div className="detail-container">
         <h2 className="post-title">{post?.title}</h2>
         <h5 className="post-category">{post?.category.title}</h5>
