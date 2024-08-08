@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "../utils/axiosInstance";
 import { toast } from "react-toastify";
 import loginValidator from "../validators/loginValidator";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 
 const initialFormData = {email: '', password: ''};
@@ -104,9 +104,8 @@ const Login = () => {
 
         </div>
 
-        <a className="forgot-password" to="/forgot-password">
-          Forgot Password
-        </a>
+        <Link className="forgot-password text-violet-700 underline underline-offset-4" to="/forgot-password">Forgot Password?</Link>
+
 
         <div className="form-group">
           <input className="button" type="submit" value={`${loading ? "Loading..." : "Login"}`} />

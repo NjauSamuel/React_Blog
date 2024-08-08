@@ -16,6 +16,7 @@ import NewPost from "./pages/post/NewPost"
 import DetailPost from "./pages/post/DetailPost";
 import UpdatePost from "./pages/post/UpdatePost";
 import VerifyUser from "./pages/VerifyUser";
+import ForgotPassword from "./pages/ForgotPassword"
 
 function App() {
   return(
@@ -39,6 +40,7 @@ function App() {
         <Route element={<PublicLayout />}>
           <Route path="signup" element={<Signup />} />
           <Route path="login" element={<Login />} />
+          <Route path="forgot-password" element={<ForgotPassword />}/>
         </Route>
 
       </Routes>
